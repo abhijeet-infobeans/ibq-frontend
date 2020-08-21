@@ -8,22 +8,10 @@
         id="appHeader"
     >
       <v-app-bar-nav-icon @click.stop="$globalStates.showSideDrawer = !$globalStates.showSideDrawer" v-if="logincheck"/>
-      <router-link exact tag="span" to="/admin/dashboard">
-        <v-toolbar-title class="ml-0 pl-4" style="width: 180px" v-if="versionName === ''">
-          <span class="hidden-sm-and-down">
-            <img alt="logo" class="logo" src="./../../../assets/logo.png"/>
-          </span>
-        </v-toolbar-title>
-        <v-tooltip bottom v-else>
-          <template v-slot:activator="{ on }">
-            <v-toolbar-title class="ml-0 pl-4" style="width: 180px" v-on="on">
-            <span class="hidden-sm-and-down">
-              <img alt="logo" class="logo" src="./../../../assets/logo.png"/>
-            </span>
-            </v-toolbar-title>
-          </template>
-          <span>{{ versionName }} </span>
-        </v-tooltip>
+      <router-link exact tag="span" to="/dashboard">
+        <span class="hidden-sm-and-down">
+          <img alt="logo" class="logo mr-1" src="./../../../assets/logo.png"/>
+        </span>
       </router-link>
       <v-toolbar-title class="display-1">{{ APPLICATION_TITLE }}</v-toolbar-title>
       <v-spacer/>

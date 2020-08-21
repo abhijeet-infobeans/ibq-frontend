@@ -1,5 +1,5 @@
 <template>
-  <div style="border:1px solid red;">
+  <div class="mainContentSection">
 <!--    <Snackbar />-->
     <Navigation />
     <Header />
@@ -18,7 +18,7 @@ import Footer from './Footer'
 // import Snackbar from './Snackbar'
 
 export default {
-  name: 'AdminLayout',
+  name: 'Layout',
   components: {
     Navigation,
     Header,

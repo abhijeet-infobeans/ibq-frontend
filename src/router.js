@@ -7,25 +7,19 @@ const routes = [{
     path: '/',
     component: Layout,
     children: [
-            {
-                path: '/',
-                name: 'Home',
-                component: () => import('../src/components/frontend/dashboard/Dashboard')
-            },
-        ]
+        {
+            path: '/',
+            name: 'Dashboard',
+            component: () => import('../src/components/frontend/dashboard/Dashboard.vue')
+        },
+    ]
     },
     {
         // catch all 404 - define at the very end
         path: '*',
-        component: Layout,
-        children: [{
-            path: '*',
-            name: 'PageNotFound',
-            component: () => import('../src/components/pagenotfound/PageNotFound.vue')
-        }]
+        component: () => import('../src/components/pagenotfound/PageNotFound.vue')
     }
 ]
-
 const router = new VueRouter({
     mode: 'history',
     base: process.env.BASE_URL,
