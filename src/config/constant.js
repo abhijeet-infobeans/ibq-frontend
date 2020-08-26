@@ -1,6 +1,6 @@
 const CONSTANT = {
   NO_DATA_FOUND: 'No data found!',
-  APPLICATION_TITLE: 'IB-Q'
+  APPLICATION_TITLE: ''
 }
 
 export default CONSTANT

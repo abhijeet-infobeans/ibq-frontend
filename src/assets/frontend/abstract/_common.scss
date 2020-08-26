@@ -10,3 +10,12 @@
 .setQuaternaryColor{
   color: $quaternary-color
 };
+.fontWhite {
+  color: #FFFFFF !important;
+}
+.setPrimaryBGColor{
+  background-color: $primary-color;
+};
+.setSecondaryBGColor{
+  background-color: $secondary-color
+};

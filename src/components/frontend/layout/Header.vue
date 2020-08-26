@@ -1,15 +1,15 @@
 <template>
   <div>
     <v-app-bar
-        :clipped-left="$vuetify.breakpoint.lgAndUp"
-        app
-        class="bgclr"
-        dark
-        id="appHeader"
+      :clipped-left="$vuetify.breakpoint.lgAndUp"
+      app
+      class="bgclr"
+      dark
+      id="appHeader"
     >
       <v-app-bar-nav-icon @click.stop="$globalStates.showSideDrawer = !$globalStates.showSideDrawer" v-if="logincheck"/>
       <router-link exact tag="span" to="/dashboard">
-        <span class="hidden-sm-and-down">
+        <span>
           <img alt="logo" class="logo mr-1" src="./../../../assets/logo.png"/>
         </span>
       </router-link>
@@ -29,62 +29,32 @@ export default {
   name: 'Header',
   data: () => ({
     APPLICATION_TITLE: CONSTANTS.APPLICATION_TITLE,
-    // WELCOME: CONSTANTS.WELCOME,
-    // LOGOUT: CONSTANTS.LOGOUT,
     FEVersion: '',
     BEVersion: ''
   }),
-  // methods: {
-  //   logout () {
-  //     new Promise((resolve, reject) => {
-  //       this.$store.dispatch('AuthModule/logout', { resolve, reject })
-  //       if (this.$vuetify.breakpoint.width > 1024) {
-  //         this.$globalStates.showSideDrawer = true
-  //       }
-  //     }).then((responseData) => {
-  //       this.$router.push({ name: 'AdminLogin' })
-  //     }).catch(({ response }) => {
-  //       this.$router.push({ name: 'AdminLogin' })
-  //     })
-  //   },
-  //   initialize () {
-  //     new Promise((resolve, reject) => {
-  //       this.$store.dispatch('AdminVersionModule/getFeVersion', { resolve, reject })
-  //     }).then((responseData) => {
-  //       this.FEVersion = responseData
-  //     }).catch(({ response }) => {
-  //       this.FEVersion = ''
-  //     })
-  //     new Promise((resolve, reject) => {
-  //       this.$store.dispatch('AdminVersionModule/getBeVersion', { resolve, reject })
-  //     }).then((responseData) => {
-  //       this.BEVersion = responseData.list.version
-  //     }).catch(({ response }) => {
-  //       this.BEVersion = ''
-  //     })
-  //   }
-  // },
-  // computed: {
-  //   logincheck: function () {
-  //     return this.$store.getters['AuthModule/isLoggedIn']
-  //   },
-  //   profileName () {
-  //     return this.$store.getters['AuthModule/getFirstName']
-  //   },
-  //   versionName () {
-  //     if (this.BEVersion !== '' && this.FEVersion !== '') {
-  //       return 'FE: ' + this.FEVersion + ' - BE: ' + this.BEVersion
-  //     } else if (this.BEVersion === '' && this.FEVersion !== '') {
-  //       return 'FE: ' + this.FEVersion
-  //     } else if (this.BEVersion !== '' && this.FEVersion === '') {
-  //       return 'BE: ' + this.BEVersion
-  //     } else {
-  //       return ''
-  //     }
-  //   }
-  // },
-  // mounted () {
-  //   this.initialize()
-  // }
+  methods: {
+    logout () {
+      new Promise((resolve, reject) => {
+        this.$store.dispatch('AuthModule/logout', { resolve, reject })
+        if (this.$vuetify.breakpoint.width > 1024) {
+          this.$globalStates.showSideDrawer = true
+        }
+      }).then(() => {
+        this.$router.push({ name: 'AdminLogin' })
+      }).catch(() => {
+        this.$router.push({ name: 'AdminLogin' })
+      })
+    },
+  },
+  computed: {
+    logincheck: function () {
+      return this.$store.getters['AuthModule/isLoggedIn']
+    },
+    profileName () {
+      return this.$store.getters['AuthModule/getFirstName']
+    },
+  },
+  mounted () {
+  }
 }
 </script>
