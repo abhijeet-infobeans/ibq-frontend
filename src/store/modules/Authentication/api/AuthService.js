@@ -7,7 +7,7 @@ export const authService = {
      */
     attemptLogin (data) {
         return axios.post(`/login`, JSON.stringify({
-                username: data.username,
+                email: data.username,
                 password: data.password
             })
         )
@@ -23,9 +23,9 @@ export const authService = {
             username: data.credentials.username
         }))
     },
-    userRecord (data) {
-        return axios.post(`/api/v1/user`, JSON.stringify({
-            username: data
+    getUserByEmail (data) {
+        return axios.post(`/api/v1/getUserByEmail`, JSON.stringify({
+            email: data
         }))
     },
     forgotPassword (data) {

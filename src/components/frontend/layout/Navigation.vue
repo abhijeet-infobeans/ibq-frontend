@@ -5,78 +5,45 @@
       v-model="$globalStates.showSideDrawer"
       :clipped="$vuetify.breakpoint.lgAndUp"
       app
-      color="dark-4"
+      color='dark-4'
     >
-      <v-navigation-drawer
-        :clipped="$vuetify.breakpoint.lgAndUp"
-        app
-        color="dark-4"
-      >
-        <v-list dense>
-          <template v-for="item in items">
-            <v-row
-              v-if="item.heading"
-              :key="item.heading"
-              align="center"
-            >
-              <v-col cols="6">
-                <v-subheader v-if="item.heading">
-                  {{ item.heading }}
-                </v-subheader>
-              </v-col>
-            </v-row>
-            <v-list-group
-              v-else-if="item.children"
-              :key="item.text"
-              v-model="item.model"
-              :append-icon="item.model ? item.icon : item['icon-alt']"
-              color="black"
-              prepend-icon
-            >
-              <template v-slot:activator>
-                <v-icon color="#95E1D3">
-                  {{ item.iconprepend }}
-                </v-icon>
-                <v-list-item>
-                  <v-list-item-content>
-                    <v-list-item-title class="ml-4">
-                      {{ item.text }}
-                    </v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </template>
-              <v-list-item
-                v-for="(child, i) in item.children"
-                :key="i"
-                :to=" '/'+ child.path"
-                link
-              >
-                <v-list-item-action v-if="child.icon">
-                  <v-icon>{{ child.icon }}</v-icon>
-                </v-list-item-action>
+      <v-list dense>
+        <template v-for='item in items'>
+          <v-row v-if='item.heading' :key='item.heading' align='center'>
+            <v-col cols='6'>
+              <v-subheader v-if='item.heading'>{{ item.heading }}</v-subheader>
+            </v-col>
+          </v-row>
+          <v-list-group v-else-if='item.children' :key='item.text' v-model='item.model'
+                        :append-icon="item.model ? item.icon : item['icon-alt']"
+                        color="black">
+            <template v-slot:activator>
+              <v-icon>{{item.iconprepend}}</v-icon>
+              <v-list-item>
                 <v-list-item-content>
-                  <v-list-item-title class="ml-12 pl-2">
-                    {{ child.text }}
-                  </v-list-item-title>
+                  <v-list-item-title class="ml-4" >{{ item.text }}</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
-            </v-list-group>
-            <v-list-item
-              v-else
-              :key="item.text"
-              :to=" '/'+ item.path"
-              link
-            >
-              <v-list-item-action>
-                <v-icon>{{ item.icon }}</v-icon>
+            </template>
+            <v-list-item  v-for='(child, i) in item.children' :key='i' link :to=" '/'+ child.path">
+              <v-list-item-action v-if='child.icon'>
+                <v-icon>{{ child.icon }}</v-icon>
               </v-list-item-action>
               <v-list-item-content>
-                <v-list-item-title>{{ item.text }}</v-list-item-title>
+                <v-list-item-title class="ml-12 pl-2">{{ child.text }}</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-          </template>
-        </v-list>
-      </v-navigation-drawer>
+          </v-list-group>
+          <v-list-item v-else :key='item.text' link :to=" '/'+ item.path">
+            <v-list-item-action>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>{{ item.text }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </template>
+      </v-list>
     </v-navigation-drawer>
   </div>
 </template>
@@ -115,8 +82,7 @@ export default {
   }),
   computed: {
     logincheck: function () {
-      return true
-      // return this.$store.getters['AuthModule/isLoggedIn']
+      return this.$store.getters['AuthModule/isLoggedIn']
     }
   }
 }
