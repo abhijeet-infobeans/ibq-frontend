@@ -1,5 +1,5 @@
-import { authModelData } from './models/AuthModel'
-import { authService } from './api/AuthService'
+import {authModelData} from './models/AuthModel'
+import {authService} from './api/AuthService'
 
 const AuthModule = {
     namespaced: true, // NameSpaced module
@@ -18,10 +18,10 @@ const AuthModule = {
     },
 
     mutations: {
-        setAuth (state) {
+        setAuth: function (state) {
             localStorage.setItem('is_logged_in', true)
             state.is_logged_in = localStorage.getItem('is_logged_in')
-            var now = new Date()
+            let now = new Date()
             localStorage.setItem('active_Time', now)
         },
         setTokens (state, tokens) {
@@ -93,10 +93,9 @@ const AuthModule = {
             }
         },
         // eslint-disable-next-line no-unused-vars
-        async userRecord ({ dispatch, commit }, { uname }) {
+        async getUserByEmail ({ dispatch, commit }, { uname }) {
             try {
-                const response = await authService.userRecord(uname)
-                return response
+                return await authService.getUserByEmail(uname)
             } catch (error) {
                 // debug statement
             }
@@ -105,7 +104,7 @@ const AuthModule = {
         async logout ({ dispatch, commit }, { resolve, reject }) {
             try {
                 /**
-                 * Call the global store action for restting all the states
+                 * Call the global store action for resting all the states
                  * To call the global action not present in this module we need to pass additional param as root true
                  */
                 dispatch('resetStoreState', null, { root: true })

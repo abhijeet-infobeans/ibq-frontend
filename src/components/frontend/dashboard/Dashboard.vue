@@ -7,11 +7,11 @@
 <script>
 export default {
   name: 'Dashboard',
+  components: {
+  },
   data: () => ({
   }),
   mounted () {
-  },
-  components: {
   },
   methods: {
   }

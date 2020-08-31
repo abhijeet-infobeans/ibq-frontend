@@ -11,10 +11,23 @@ import store from "@/store/store";
 /**
  * Configure axios
  */
+// axios.defaults.withCredentials = true
 axios.defaults.baseURL = ENV_PARAMS.BACKEND_BASE_URL
-axios.defaults.withCredentials = true
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 axios.defaults.headers.post['Accept'] = 'application/json'
+axios.interceptors.request.use(
+    config => {
+      // modify headers
+      if (store.state.AuthModule.token) {
+        // exclude Authorization header to external API calls
+        config.headers.common['Authorization'] = `Bearer ${store.state.AuthModule.token}`
+      }
+      return config
+    },
+    error => {
+      return Promise.reject(error)
+    }
+)
 
 
 // Use Global plugin

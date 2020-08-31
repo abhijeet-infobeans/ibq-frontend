@@ -1,5 +1,5 @@
 <template>
-  <v-content>
+  <v-main>
     <v-container>
       <v-row
         align="center"
@@ -7,8 +7,8 @@
       >
         <v-col
           cols="12"
-          sm="8"
           md="4"
+          sm="8"
         >
           <v-spacer />
           <v-form
@@ -18,20 +18,20 @@
           >
             <v-text-field
               v-model="username"
-              shaped
               :rules="usernameRules"
               label="E-mail"
+              outlined
               required
               validate-on-blur
               @keyup.enter="submit"
             />
             <v-text-field
               v-model="password"
-              shaped
               :rules="passwordRules"
               label="Password"
-              type="password"
+              outlined
               required
+              type="password"
               @keyup.enter="submit"
             />
             <v-checkbox
@@ -41,10 +41,10 @@
             />
             <div class="float-right">
               <v-btn
-                class="text-capitalize"
                 :to="{ path: 'forgotpassword' }"
-                text
+                class="text-capitalize"
                 small
+                text
               >
                 Forgot Password?
               </v-btn>
@@ -52,9 +52,9 @@
             <v-spacer style="clear:both;" />
             <div class="float-right">
               <v-btn
-                :loading="btnLoader"
                 :disabled="!valid"
-                class="mr-4 bgclr fontWhite"
+                :loading="btnLoader"
+                class="mr-4 setPrimaryBGColor fontWhite"
                 @click="submit"
               >
                 Login
@@ -65,12 +65,12 @@
         </v-col>
       </v-row>
     </v-container>
-  </v-content>
+  </v-main>
 </template>
 
 <script>
 import CONSTANTS from './../../../config/constant'
-import router from '../../../router'
+
 export default {
   name: 'Login',
   data: () => ({
@@ -88,13 +88,8 @@ export default {
     passwordRules: [v => !!v || 'Password is required'],
     keepLoggedIn: false
   }),
-  computed: {
-    manageAlert: function () {
-      return this.$store.getters['AuthModule/getAlert']
-    }
-  },
   methods: {
-    submit () {
+    submit() {
       this.btnLoader = true
       const credentials = {
         username: this.username,
@@ -110,40 +105,45 @@ export default {
           if (this.keepLoggedIn) {
             localStorage.setItem('keepLoggedIn', true)
           }
-          this.$store.dispatch('AuthModule/attemptLogin', { resolve, reject, credentials })
+          this.$store.dispatch('AuthModule/attemptLogin', {resolve, reject, credentials})
         }).then((responseData) => {
           // Once receive a token, then set the token for further api calls
           // Set token
           let tokens = responseData.data
-          this.$store.dispatch('AuthModule/setJWTTokens', { tokens }).then(() => {
+          this.$store.dispatch('AuthModule/setJWTTokens', {tokens}).then(() => {
             // Fetch user details
             let uname = credentials.username
-            this.$store.dispatch('AuthModule/userRecord', { uname }).then((usrResponse) => {
+            this.$store.dispatch('AuthModule/getUserByEmail', {uname}).then((usrResponse) => {
               /**
                * Here the condition where we would checking user status
                */
               let userDetails = usrResponse.data.data
               if (userDetails.status === CONSTANTS.ACTIVE_USER_DEFAULT_STATUS) {
-                this.$store.dispatch('AuthModule/setUserMetaInfoToApp', { userDetails }).then(() => {
+                this.$store.dispatch('AuthModule/setUserMetaInfoToApp', {userDetails}).then(() => {
                   // redirect user to dashboard
-                  router.push({ path: 'dashboard' })
+                  this.$router.push({path: 'dashboard'})
                   this.btnLoader = false
                 }).catch()
               } else {
                 /**
-                 * show the incative message error
+                 * show the inactive message error
                  */
                 this.btnLoader = false
                 this.$globalStates.notification.type = 'error'
-                this.$globalStates.notification.text = CONSTANTS.INCATIVE_USER_ERROR_MSG
+                this.$globalStates.notification.text = CONSTANTS.INACTIVE_USER_ERROR_MSG
                 this.$globalStates.notification.init_notifications = true
               }
-            }).catch()
+            }).catch(() => {
+              this.btnLoader = false
+              this.$globalStates.notification.type = 'error'
+              this.$globalStates.notification.text = this.$globalStates.getErrorMessageText('')
+              this.$globalStates.notification.init_notifications = true
+            })
           }).catch()
-        }).catch(({ response }) => {
+        }).catch(() => {
           this.btnLoader = false
           this.$globalStates.notification.type = 'error'
-          this.$globalStates.notification.text = response.data.message
+          this.$globalStates.notification.text = this.$globalStates.getErrorMessageText('')
           this.$globalStates.notification.init_notifications = true
         })
       }

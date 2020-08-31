@@ -2,15 +2,29 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import AuthModule from "@/store/modules/Authentication/AuthModule";
 import defaultStoreStates from './defaultStoreStates'
+import createPersistedState from 'vuex-persistedstate'
+import Cookies from 'js-cookie'
 
 Vue.use(Vuex)
 
 const storeModules = {
     AuthModule
 }
+let tz;
+tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+const date = new Date(tz)
+date.setTime(date.getTime() + (3600 * 1000))
 const store = new Vuex.Store({
     namespace: true,
     modules: storeModules,
+    plugins: [createPersistedState({
+        paths: ['AuthModule'],
+        storage: {
+            getItem: key => Cookies.get(key),
+            setItem: (key, value) => Cookies.set(key, value, { expires: date }),
+            removeItem: key => Cookies.remove(key)
+        }
+    })],
     state: {
     },
     mutations: {
