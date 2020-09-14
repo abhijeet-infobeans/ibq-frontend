@@ -6,7 +6,8 @@ const CONSTANT = {
   ACTIVE_USER_DEFAULT_STATUS: 'active',
   SOMETHING_WENT_WRONG: 'Something went wrong! Please try after sometime.',
   WELCOME: 'Hello',
-  LOGOUT: 'Logout'
+  LOGOUT: 'Logout',
+  ADD_NEW_PROJECT: 'Add New Project'
 }
 
 export default CONSTANT

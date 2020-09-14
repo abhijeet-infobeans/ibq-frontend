@@ -23,6 +23,11 @@ const routes = [{
             name: 'Dashboard',
             component: () => import('../src/components/frontend/dashboard/Dashboard.vue')
         },
+        {
+            path: '/projects',
+            name: 'ListProject',
+            component: () => import('./components/frontend/project/ListProject')
+        },
     ]
     },
     {

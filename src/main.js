@@ -7,6 +7,7 @@ import GlobalStorePlugin from './globalStorePlugin'
 import axios from 'axios'
 import ENV_PARAMS from './config/envparams'
 import store from "@/store/store";
+import * as idb from 'idb';
 
 /**
  * Configure axios
@@ -38,8 +39,9 @@ Vue.prototype.$axios = axios
 Vue.config.productionTip = false
 
 new Vue({
-  router,
-  store,
-  vuetify,
-  render: h => h(App)
+    router,
+    store,
+    vuetify,
+    idb,
+    render: h => h(App)
 }).$mount('#app')

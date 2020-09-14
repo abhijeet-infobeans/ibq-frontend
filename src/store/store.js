@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import AuthModule from "@/store/modules/Authentication/AuthModule";
+import ProjectModule from "@/store/modules/Project/ProjectModule";
 import defaultStoreStates from './defaultStoreStates'
 import createPersistedState from 'vuex-persistedstate'
 import Cookies from 'js-cookie'
@@ -8,7 +9,8 @@ import Cookies from 'js-cookie'
 Vue.use(Vuex)
 
 const storeModules = {
-    AuthModule
+    AuthModule,
+    ProjectModule
 }
 let tz;
 tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
