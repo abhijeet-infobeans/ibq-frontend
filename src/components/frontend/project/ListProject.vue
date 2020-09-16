@@ -12,14 +12,33 @@
         class="elevation-1"
       >
         <template v-slot:top>
-          <v-text-field
-            v-model="search"
-            class="font-weight-light ml-4 mr-4 mb-4"
-            append-icon="mdi-magnify"
-            label="Search Project"
-            single-line
-            hide-details
-          />
+          <v-row>
+            <v-col cols="7">
+              <v-text-field
+                v-model="search"
+                class="font-weight-light ml-4 mr-4 mb-4"
+                append-icon="mdi-magnify"
+                label="Search Project"
+                single-line
+                hide-details
+              />
+            </v-col>
+            <v-col
+              class="text-right"
+              cols="5"
+            >
+              <v-btn
+                outlined
+                class="mr-2 text-right setPrimaryBGColor fontWhite"
+                @click="goToAddProject"
+              >
+                <v-icon dark>
+                  mdi-plus
+                </v-icon>
+                Add New Project
+              </v-btn>
+            </v-col>
+          </v-row>
         </template>
         <!--        <template v-slot:item.action="{ item }">-->
         <!--          <v-icon-->
@@ -115,6 +134,9 @@ export default {
           this.loading = false
         })
     },
+    goToAddProject () {
+      this.$router.push({ name: 'AddProject', params: {} })
+    }
   }
 }
 </script>

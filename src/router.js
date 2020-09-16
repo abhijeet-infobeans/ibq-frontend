@@ -28,6 +28,11 @@ const routes = [{
             name: 'ListProject',
             component: () => import('./components/frontend/project/ListProject')
         },
+        {
+            path: '/addproject',
+            name: 'AddProject',
+            component: () => import('./components/frontend/project/AddProject')
+        },
     ]
     },
     {

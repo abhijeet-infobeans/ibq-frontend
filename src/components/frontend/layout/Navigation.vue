@@ -88,7 +88,8 @@ export default {
         text: 'Projects',
         model: false,
         children: [
-          {text: 'List Projects', path: 'projects'},
+          {text: 'Add Project', path: 'addproject'},
+          {text: 'List Projects', path: 'projects'}
         ]
       },
       {

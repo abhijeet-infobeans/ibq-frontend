@@ -23,6 +23,20 @@ const ProjectModule = {
                 reject && reject(error)
             }
         },
+        // eslint-disable-next-line no-unused-vars
+        async addProject({ dispatch }, { resolve, reject, formData }) {
+            try {
+                const response = await projectService.addProject(formData)
+                const { success, data } = response.data
+                if (success) {
+                    resolve && resolve(data)
+                } else {
+                    reject && reject(data)
+                }
+            } catch (error) {
+                reject && reject(error)
+            }
+        },
     }
 }
 export default ProjectModule
